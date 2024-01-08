@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     BSidebar: typeof import('bootstrap-vue-next')['BSidebar']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    ProductsSearch: typeof import('./src/components/ProductsSearch.vue')['default']
+    ProductsTable: typeof import('./src/components/ProductsTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
