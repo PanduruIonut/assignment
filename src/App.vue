@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SideBar from './components/SideBar.vue';
+import NotificationLayout from './components/NotificationLayout.vue';
 
 
 </script>
@@ -10,6 +11,7 @@ import SideBar from './components/SideBar.vue';
         <SideBar/>
       </div>
       <div class="col-10">
+        <NotificationLayout/>
         <router-view></router-view>
       </div>
     </div>
