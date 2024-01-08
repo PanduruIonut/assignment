@@ -35,6 +35,7 @@ import { menu } from '../data/menu.ts';
 .list-group-item {
   border: 0px;
   color:#b4b4b4;
+  font-size: 14px;
 }
 
 .list-group-item:last-child{
