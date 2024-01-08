@@ -7,8 +7,12 @@ export const useProductStore = defineStore('products', () => {
     let products = ref<Product[]>([])
 
     const setProducts = async () => {
-        const response = (await fetchProductsList()).products
-        products.value = response
+        try {
+            const response = (await fetchProductsList()).products
+            products.value = response
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return {
