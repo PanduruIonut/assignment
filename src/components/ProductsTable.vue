@@ -8,10 +8,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Product A</td>
-        <td>Description of Product A</td>
+      <tr v-for="product in products" :key="product.id">
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td>
+          <router-link class="data-table__product" :to="{ name: 'ProductDetail', params: { id: product.id } }">
+            {{ product.title }}
+          </router-link>
+        </td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.brand }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.rating }}</td>
       </tr>
     </tbody>
   </table>
