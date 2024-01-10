@@ -1,41 +1,128 @@
+<script lang="ts" setup>
+import { computed, onMounted } from 'vue';
+import { useProductStore } from '../pinia/useProductStore';
+
+const productStore = useProductStore();
+const products = computed(() => {
+  return productStore.products;
+});
+
+onMounted(async () => {
+  await productStore.setProducts();
+});
+
+function sort(sortable: boolean, key: string) {
+  if (!sortable) return;
+  productStore.sortProducts(key);
+}
+
+function getArrowDirection(key: string): string {
+
+  const titleSortOrder = productStore.titleSortOrder;
+  const brandSortOrder = productStore.brandSortOrder;
+
+  if ((key === 'title' && titleSortOrder === 'asc') || (key === 'brand' && brandSortOrder === 'asc')) {
+    return '↓';
+  } else if ((key === 'title' && titleSortOrder === 'desc') || (key === 'brand' && brandSortOrder === 'desc')) {
+    return '↑';
+  }
+
+  return '';
+}
+
+const tableHeader = [
+  { title: 'Title', key: 'title', sortable: true, sortOrder: productStore.titleSortOrder },
+  { title: 'Category', key: 'category', sortable: false },
+  { title: 'Brand', key: 'brand', sortable: true, sortOrder: productStore.brandSortOrder },
+  { title: 'Price', key: 'price', sortable: false },
+  { title: 'Stock', key: 'stock', sortable: false },
+  { title: 'Rating', key: 'rating', sortable: false },
+];
+
+</script>
+
 <template>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="product in products" :key="product.id">
-        <td>
-          <input type="checkbox" />
-        </td>
-        <td>
-          <router-link class="data-table__product" :to="{ name: 'ProductDetail', params: { id: product.id } }">
-            {{ product.title }}
-          </router-link>
-        </td>
-        <td>{{ product.category }}</td>
-        <td>{{ product.brand }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.stock }}</td>
-        <td>{{ product.rating }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th v-for="header in tableHeader" @click="sort(header.sortable, header.key)" :key="header.key">
+            {{ header.title }}
+            <span v-if="header.sortable">
+              {{ getArrowDirection(header.key) }}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="product in products" :key="product.id">
+          <td>
+            <input type="checkbox" />
+          </td>
+          <td>
+            <router-link class="data-table__product" :to="{ name: 'ProductDetail', params: { id: product.id } }">
+              {{ product.title }}
+            </router-link>
+          </td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>{{ product.rating }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
+
 <style>
+.table-wrapper {
+  overflow-x: scroll;
+}
+
 .data-table {
-  width: 80%;
+  background-color: #fff;
+  width: 100%;
   margin-top: 20px;
+  border-collapse: collapse;
 }
 
 .data-table th,
 .data-table td {
-  border: 1px solid #ccc;
+  line-height: 36px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   padding: 8px 12px;
   text-align: left;
+  font-size: smaller;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  border-left: none;
+}
+
+.data-table th:last-child,
+.data-table td:last-child {
+  border-right: none;
+}
+
+.data-table tr:first-child th,
+.data-table tr:first-child td {
+  border-top: none;
+}
+
+
+.arrow-up {
+  content: '↑';
+}
+
+.arrow-down {
+  content: '↓';
+}
+
+.data-table__product {
+  text-decoration: none;
 }
 </style>
