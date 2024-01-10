@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import SideBar from './components/SideBar.vue';
+import MobileMenu from './components/MobileMenu.vue';
 import NotificationLayout from './components/NotificationLayout.vue';
 
 
 </script>
 
 <template>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-2">
-        <SideBar/>
+      <div class="col-12 col-xs-12 col-md-3 col-lg-2">
+        <SideBar class="d-none d-md-block" />
+        <MobileMenu class="d-block d-md-none" />
       </div>
-      <div class="col-10">
-        <NotificationLayout/>
+      <div class="col-12 col-xs-12 col-md-9 col-lg-10">
+        <NotificationLayout />
         <router-view></router-view>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>

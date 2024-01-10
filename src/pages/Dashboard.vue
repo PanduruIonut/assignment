@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" script>
 import ProductsTable from "../components/ProductsTable.vue";
 import ProductsSearch from "../components/ProductsSearch.vue";
 </script>
@@ -12,7 +12,7 @@ import ProductsSearch from "../components/ProductsSearch.vue";
 <style>
 .dashboard {
     background-color: #f8f8f8 !important;
-    height: 100vh;
     padding: 40px;
+    min-height: 100%;
 }
 </style>
