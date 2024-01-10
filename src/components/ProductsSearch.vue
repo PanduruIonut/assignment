@@ -1,4 +1,24 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { useProductStore } from '../pinia/useProductStore';
+
+const title = ref('');
+const brand = ref('');
+const productStore = useProductStore();
+
+const debounce = <F extends (...args: any[]) => void>(func: F, waitFor: number) => {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return (...args: Parameters<F>): void => {
+        if (timeout !== null) clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), waitFor);
+    };
+};
+
+const debouncedSearch = debounce(async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const searchQuery = target.value;
+    await productStore.search(searchQuery);
+}, 500);
 </script>
 
 <template>
@@ -7,12 +27,12 @@
         <div class="search-container__inputs">
             <div class="input-field--title me-4">
                 <label class="input-field__label" for="title">Title</label>
-                <input type="text" id="title" placeholder="Enter Title"
+                <input type="text" id="title" placeholder="Enter Title" v-model="title" @input="debouncedSearch"
                     class="input-field__input" />
             </div>
             <div class="input-field--brand">
                 <label class="input-field__label" for="brand">Brand</label>
-                <input type="text" id="brand" placeholder="Enter Brand"
+                <input type="text" id="brand" placeholder="Enter Brand" v-model="brand" @input="debouncedSearch"
                     class="input-field__input" />
             </div>
         </div>

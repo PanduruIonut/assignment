@@ -60,9 +60,9 @@ export function fetchProductById(id: number): Promise<Product> {
     });
 }
 
-export function searchProducts(query: string): Promise<{ results: Product[] }> {
-    const url = `${import.meta.env.VITE_API_BASE_URL}/search?query=${query}`;
-    return productApiRequest<{ results: Product[] }>(url, {
+export function searchProducts(query: string): Promise<{ products: Product[] }> {
+    const url = `${import.meta.env.VITE_API_BASE_URL}/search?q=${query}`;
+    return productApiRequest<{ products: Product[] }>(url, {
         method: 'GET',
     });
 }
