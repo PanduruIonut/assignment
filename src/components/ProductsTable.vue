@@ -8,7 +8,7 @@ const products = computed(() => {
 });
 
 onMounted(async () => {
-  await productStore.setProducts();
+  await productStore.getProducts();
 });
 
 function sort(sortable: boolean, key: string) {

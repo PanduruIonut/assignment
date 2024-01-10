@@ -8,10 +8,12 @@ export const useProductStore = defineStore('products', () => {
     const titleSortOrder = ref<'asc' | 'desc' | null>(null);
     const brandSortOrder = ref<'asc' | 'desc' | null>(null);
 
-    const setProducts = async () => {
+    const getProducts = async () => {
         try {
-            const response = (await fetchProductsList()).products
-            products.value = response
+            const response = await fetchProductsList()
+            if(response && response.products){
+                products.value = response.products
+            }
         } catch (error) {
             console.log(error)
         }
@@ -53,10 +55,9 @@ export const useProductStore = defineStore('products', () => {
 
     const search = async (searchTerm: string) => {
         try {
-            const response = (await searchProducts(searchTerm)).products
-            console.log(response)
-            if(response)
-            products.value = response
+            const response = await searchProducts(searchTerm)
+            if (response && response.products)
+                products.value = response.products
         } catch (error) {
             console.log(error)
         }
@@ -64,7 +65,7 @@ export const useProductStore = defineStore('products', () => {
 
     return {
         products,
-        setProducts,
+        getProducts,
         sortProducts,
         titleSortOrder,
         brandSortOrder,
