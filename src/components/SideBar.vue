@@ -3,7 +3,7 @@ import { menu } from '../data/menu.ts';
 
 </script>
 <template>
-  <div class="bg-light border-right d-flex flex-column bg-white" id="sidebar-wrapper">
+  <div class="bg-light border-right d-flex flex-column bg-white position-md-fixed" id="sidebar-wrapper">
     <div class="sidebar-heading pt-4 ps-5 pb-4">Sales.</div>
       <div class="list-group list-group-flush">
         <router-link 
@@ -23,7 +23,13 @@ import { menu } from '../data/menu.ts';
 <style scoped>
 
 #sidebar-wrapper {
-  height: 100vh;
+  min-height: 100%;
+}
+
+@media screen and (min-width:768px) {
+  #sidebar-wrapper {
+    position:fixed;
+  }
 }
 
 .sidebar-heading {
@@ -60,5 +66,12 @@ import { menu } from '../data/menu.ts';
   background-color: #1363f8;
   align-items: center;
   margin-top: 12px;
+}
+@media screen and (max-width:768px) {
+  .list-group-item:last-child{
+  position: relative;
+  max-width: fit-content;
+  bottom: 0;
+} 
 }
 </style>
