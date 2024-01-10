@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" script>
 import FontAwesomeIcon from "../utils/fontawesome-icons";
 
 </script>
@@ -33,6 +33,12 @@ import FontAwesomeIcon from "../utils/fontawesome-icons";
 .notification-wrapper__avatar-container-bell {
     background-color: #ffffff;
     position: relative;
+}
+
+.notification-wrapper__avatar-container{
+    display: flex;
+    align-items: center;
+    margin-left:12px
 }
 
 .notification-wrapper__input {
