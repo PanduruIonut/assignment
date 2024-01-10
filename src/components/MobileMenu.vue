@@ -3,16 +3,16 @@ import { ref } from 'vue';
 import { menu } from '../data/menu.ts';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-const toggle = ref(false);
+const isVisible = ref(false);
 const toggleMenu = () => {
-    toggle.value = !toggle.value;
+    isVisible.value = !isVisible.value;
 };
 </script>
 <template>
     <div class="bg-light border-right d-flex flex-column bg-white position-md-fixed" id="sidebar-wrapper">
         <div class="d-flex justify-content-between align-items-center">
             <div class="sidebar-heading pt-4 ps-5 pb-4">Sales.</div>
-            <div class="pe-4" v-if="toggle" @click="toggleMenu()">
+            <div class="pe-4" v-if="isVisible" @click="toggleMenu()">
                 <font-awesome-icon icon="fa-x" />
             </div>
             <div class="pe-4" v-else @click="toggleMenu()">
@@ -20,7 +20,7 @@ const toggleMenu = () => {
             </div>
         </div>
         <transition name="fade">
-            <div class="list-group list-group-flush" v-if="toggle">
+            <div class="list-group list-group-flush" v-if="isVisible">
                 <router-link v-for="item in menu" :key="item.id" :to="item.link"
                     class="list-group-item list-group-item-action bg-white p-3 ps-5"
                     :class="{ active: $route.path === item.link }">
