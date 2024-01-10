@@ -11,7 +11,7 @@ onMounted(async () => {
   await productStore.getProducts();
 });
 
-function sort(sortable: boolean, key: string) {
+function sort(key: string, sortable: boolean = false) {
   if (!sortable) return;
   productStore.sortProducts(key);
 }
@@ -27,16 +27,23 @@ function getArrowDirection(key: string): string {
     return '↑';
   }
 
-  return '';
+  return '⇅';
 }
 
-const tableHeader = [
+type TableHeader = {
+  title: string;
+  key: string;
+  sortable?: boolean;
+  sortOrder?: 'asc' | 'desc' | null;
+}
+
+const tableHeader: Array<TableHeader> = [
   { title: 'Title', key: 'title', sortable: true, sortOrder: productStore.titleSortOrder },
-  { title: 'Category', key: 'category', sortable: false },
+  { title: 'Category', key: 'category' },
   { title: 'Brand', key: 'brand', sortable: true, sortOrder: productStore.brandSortOrder },
-  { title: 'Price', key: 'price', sortable: false },
-  { title: 'Stock', key: 'stock', sortable: false },
-  { title: 'Rating', key: 'rating', sortable: false },
+  { title: 'Price', key: 'price' },
+  { title: 'Stock', key: 'stock' },
+  { title: 'Rating', key: 'rating' },
 ];
 
 </script>
@@ -47,8 +54,8 @@ const tableHeader = [
     <table class="data-table" v-if="products.length > 0">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
-          <th v-for="header in tableHeader" @click="sort(header.sortable, header.key)" :key="header.key">
+          <th><input type="checkbox"/></th>
+          <th v-for="header in tableHeader" @click="sort(header.key, header.sortable)" :key="header.key">
             {{ header.title }}
             <span v-if="header.sortable">
               {{ getArrowDirection(header.key) }}
