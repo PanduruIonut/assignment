@@ -15,7 +15,7 @@ const toggleMenu = () => {
             <div v-if="toggle" @click="toggleMenu()">
                 <font-awesome-icon icon="fa-x" />
             </div>
-            <div v-else @click="toggleMenu()">
+            <div class="pe-4" v-else @click="toggleMenu()">
                 <font-awesome-icon icon="fa-bars" />
             </div>
         </div>
