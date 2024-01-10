@@ -12,7 +12,7 @@ const toggleMenu = () => {
     <div class="bg-light border-right d-flex flex-column bg-white position-md-fixed" id="sidebar-wrapper">
         <div class="d-flex justify-content-between align-items-center">
             <div class="sidebar-heading pt-4 ps-5 pb-4">Sales.</div>
-            <div v-if="toggle" @click="toggleMenu()">
+            <div class="pe-4" v-if="toggle" @click="toggleMenu()">
                 <font-awesome-icon icon="fa-x" />
             </div>
             <div class="pe-4" v-else @click="toggleMenu()">
@@ -24,7 +24,7 @@ const toggleMenu = () => {
                 <router-link v-for="item in menu" :key="item.id" :to="item.link"
                     class="list-group-item list-group-item-action bg-white p-3 ps-5"
                     :class="{ active: $route.path === item.link }">
-                    <font-awesome-icon class="pe-4" :icon="item.icon" />
+                    <font-awesome-icon :icon="item.icon" />
                     {{ item.title }}
                 </router-link>
             </div>
@@ -43,12 +43,9 @@ const toggleMenu = () => {
     }
 }
 
-
-
 .sidebar-heading {
     font-size: 1.6rem;
     color: #2859cf;
-
 }
 
 .list-group-item {
@@ -65,7 +62,6 @@ const toggleMenu = () => {
 
 .active {
     color: #1363f8;
-
 }
 
 .active::before {
