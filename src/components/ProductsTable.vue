@@ -43,7 +43,8 @@ const tableHeader = [
 
 <template>
   <div class="table-wrapper">
-    <table class="data-table">
+    <span :class="{ loader: products.length == 0 }"></span>
+    <table class="data-table" v-if="products.length > 0">
       <thead>
         <tr>
           <th><input type="checkbox" /></th>
@@ -79,6 +80,7 @@ const tableHeader = [
 <style>
 .table-wrapper {
   overflow-x: scroll;
+  text-align: center;
 }
 
 .data-table {
@@ -124,5 +126,8 @@ const tableHeader = [
 
 .data-table__product {
   text-decoration: none;
+}
+.loader{
+  margin-top:100px;
 }
 </style>

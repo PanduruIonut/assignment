@@ -13,13 +13,22 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
-        <h1>Product Details</h1>
-        <div class="row" v-if="product">
-            {{ product  }}
-        </div>
-        <div v-else>
-            Loading product details...
-        </div>
+    <div class="product-details__wrapper">
+        <h1 class="mb-5">Product Details</h1>
+        <span :class="{ loader: !product }"></span>
+        {{ product }}
     </div>
 </template>
+
+<style scoped>
+.product-details__wrapper {
+    min-height: 100vh;
+    background-color: #f8f8f8;
+    padding: 40px;
+    text-align: center;
+}
+
+.loader {
+    margin-top: 20px;
+}
+</style>
