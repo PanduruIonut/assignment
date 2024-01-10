@@ -9,7 +9,7 @@ interface ProductApiRequestParams<T> extends RequestInit {
 }
 
 export async function productApiRequest<T>(
-    url: string,
+    path: string,
     { method, data, ...customConfig }: ProductApiRequestParams<T>
 ): Promise<T> {
     const config: RequestInit = {
@@ -24,7 +24,8 @@ export async function productApiRequest<T>(
         config.body = JSON.stringify(data);
     }
 
-    const response = await fetch(url, config);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const response = await fetch(`${baseUrl}${path}`, config);
 
     if (!response.ok) {
         switch (response.status) {
@@ -47,22 +48,19 @@ export async function productApiRequest<T>(
 }
 
 export function fetchProductsList(): Promise<{ products: Product[] }> {
-    const url = import.meta.env.VITE_API_BASE_URL;
-    return productApiRequest<{ products: Product[] }>(url, {
+    return productApiRequest<{ products: Product[] }>('/', {
         method: 'GET',
     });
 }
 
 export function fetchProductById(id: number): Promise<Product> {
-    const url = `${import.meta.env.VITE_API_BASE_URL}/${id}`;
-    return productApiRequest<Product>(url, {
+    return productApiRequest<Product>(`/${id}`, {
         method: 'GET',
     });
 }
 
 export function searchProducts(query: string): Promise<{ products: Product[] }> {
-    const url = `${import.meta.env.VITE_API_BASE_URL}/search?q=${query}`;
-    return productApiRequest<{ products: Product[] }>(url, {
+    return productApiRequest<{ products: Product[] }>(`/search?q=${query}`, {
         method: 'GET',
     });
 }
