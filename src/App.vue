@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import SideBar from './components/SideBar.vue';
 import MobileMenu from './components/MobileMenu.vue';
-import NotificationLayout from './components/NotificationLayout.vue';
-
-
+import TopBar from './components/TopBar.vue';
 </script>
 
 <template>
@@ -14,7 +12,7 @@ import NotificationLayout from './components/NotificationLayout.vue';
         <MobileMenu class="d-block d-md-none" />
       </div>
       <div class="col-12 col-xs-12 col-md-9 col-lg-10">
-        <NotificationLayout />
+        <TopBar />
         <router-view></router-view>
       </div>
     </div>

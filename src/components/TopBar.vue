@@ -1,4 +1,4 @@
-<script lang="ts" script>
+<script setup lang="ts" script>
 import FontAwesomeIcon from "../utils/fontawesome-icons";
 
 </script>
