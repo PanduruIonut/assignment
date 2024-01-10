@@ -1,4 +1,4 @@
-<script lang="ts" script>
+<script lang="ts" setup>
 import ProductsTable from "../components/ProductsTable.vue";
 import ProductsSearch from "../components/ProductsSearch.vue";
 </script>
